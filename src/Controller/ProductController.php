@@ -6,16 +6,24 @@ use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 class ProductController extends AbstractController {
+
     private $repository;
 
+    /**
+     * ProductController constructor.
+     * @param ProductRepository $repository
+     */
+
+    public function __construct(ProductRepository $repository)
+    {
+        $this->repository = $repository;
+    }
     /**
      * @Route("/products", name="products.index")
      * @param ProductRepository $repository
      * @return Response
      */
-
     public function index(ProductRepository $repository): Response{
         $products = $repository->findAll();
         return $this->render('products/index.html.twig',[
@@ -34,5 +42,28 @@ class ProductController extends AbstractController {
         $em->persist($product);
         $em->flush();
         return null;
+    }
+
+    /**
+     * @Route("/products/{slug}-{id}", name="products.show", requirements={"slug":"[a-z0-9\-]*"})
+     * @param Product $product
+     * @param String $slug
+     * @return Response
+     */
+    public function show(Product $product, String $slug): Response{
+        if($product->getSlug() !== $slug){
+            return $this->redirectToRoute('product.show',[
+                'id' => $product->getId(),
+                'slug' => $product->getSlug(),
+
+            ],301);
+        }
+
+        // IMPOSSIBLE
+        return $this->render('products/show.html.twig',
+            [
+                'product'=> $product,
+                'current_menu' => 'products'
+            ]);
     }
 }
