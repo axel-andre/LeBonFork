@@ -6,4 +6,26 @@
     <div class="container mt-4">
         <h1>Tous les biens</h1>
     </div>
+    <div class="container">
+        <div class="row">
+
+        {% for product in products %}
+            <div class="col-md-4">
+
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ product.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ product.price }} €</h6>
+                    <p class="card-text">{{ product.description }}</p>
+                    <div class="text-right">
+
+                        <a href="#" class="card-link">Partager</a>
+                        <a href="#" class="card-link">Acheter</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
 {% endblock %}
