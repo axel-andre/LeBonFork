@@ -2,6 +2,7 @@
 namespace App\Controller\admin;
 
 use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +30,11 @@ class AdminProductController  extends  AbstractController {
      * @return Response
      */
     public function edit(Product $product): Response{
-        return $this->render('admin/product/edit.html.twig', compact('product'));
+        $form = $this->createForm(ProductType::class, $product);
+        return $this->render('admin/product/edit.html.twig', [
+            'product'=>$product,
+            'form'=>$form->createView()
+        ]);
     }
 
 }
