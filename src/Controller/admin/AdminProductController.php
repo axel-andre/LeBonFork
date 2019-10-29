@@ -45,6 +45,7 @@ class AdminProductController  extends  AbstractController {
 
         if($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
+            $this->addFlash('success', 'Fichier bien édité.');
             return $this->redirectToRoute('admin.product.index');
         }
 
@@ -67,6 +68,7 @@ class AdminProductController  extends  AbstractController {
         if($form->isSubmitted() && $form->isValid()){
             $this->em->persist($product);
             $this->em->flush();
+            $this->addFlash('success', 'Fichier bien ajouté.');
             return $this->redirectToRoute('admin.product.index');
         }
 
@@ -87,6 +89,7 @@ class AdminProductController  extends  AbstractController {
         if($this->isCsrfTokenValid('delete'.$product->getId(),$request->get('_token'))){
             $this->em->remove($product);
             $this->em->flush();
+            $this->addFlash('success', 'Fichier bien supprimé.');
         }
         return $this->redirectToRoute('admin.product.index');
     }
