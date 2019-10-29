@@ -1,11 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="container mt-4">
+    <div class="container col-4 mt-4">
         <h1>Éditer le bien</h1>
-
-        {{ form_start(form) }}
-        {{ form_rest(form) }}
-            <button class="btn btn-success"> Éditer</button>
-        {{ form_end(form) }}
+        {{ include('admin/product/_form.html.twig', {foo: 'bar', button: 'Éditer'}) }}
     </div>
 {% endblock %}

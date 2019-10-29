@@ -54,4 +54,11 @@ class AdminProductController  extends  AbstractController {
         ]);
     }
 
+    /**
+     * @Route("/admin/product/create", name="admin.product.new")
+     * @param Request $request
+     */
+    public function new(Request $request){
+        $product = new Product();
+    }
 }
