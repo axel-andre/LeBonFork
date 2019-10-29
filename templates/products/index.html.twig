@@ -13,11 +13,10 @@
             <div class="col-md-4">
             <a href="{{ path('products.show', {id: product.id, slug: product.slug}) }}">
 
-                <div class="card" style="width: 18rem;">
+                <div class="card mt-4" style="width: 18rem; min-height: 100px;">
                     <div class="card-body">
-                        <h5 class="card-title text-center">{{ product.title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ product.price }} €</h6>
-                        <p class="card-text">{{ product.description }}</p>
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <h6 class="card-subtitle mt-4 mb-2 text-muted">{{ product.price }} €</h6>
                         <div class="text-right">
 
                             <a href="#" class="card-link">Partager</a>

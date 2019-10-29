@@ -6,10 +6,11 @@
     <div class="container mt-4">
         <h2>Gérer les biens</h2>
         {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-4">
                 ✅ {{ message }}
             </div>
         {% endfor %}
+        <a class="btn btn-success mt-2 mb-4" href="{{ path('admin.product.new') }}">+ Ajouter un produit</a>
         <table class="table table-striped">
             <thead>
                 <tr>
