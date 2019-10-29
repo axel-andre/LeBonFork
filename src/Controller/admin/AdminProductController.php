@@ -78,13 +78,13 @@ class AdminProductController  extends  AbstractController {
     }
 
     /**
-     * @Route("/admin/product/{id}", name="admin.proudct.delete", methods="DELETE")
+     * @Route("/admin/product/{id}", name="admin.product.delete", methods="DELETE")
      * @param Product $product
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Product $product, Request $request){
-        if($this->isCsrfTokenValid('delete'.$product->getId(),$request->get('token'))){
+        if($this->isCsrfTokenValid('delete'.$product->getId(),$request->get('_token'))){
             $this->em->remove($product);
             $this->em->flush();
         }

@@ -16,7 +16,18 @@
             {% for product in products %}
                 <tr>
                     <td>{{ product.title }}</td>
-                    <td><a href="{{ path('admin.product.edit', { id: product.id }) }}" class="btn btn-secondary"> Éditer</a></td>
+                    <td>
+                        <a href="{{ path('admin.product.edit', { id: product.id }) }}" class="btn btn-secondary"> Éditer</a>
+                        <form action="{{ path("admin.product.delete", {id: product.id}) }}"
+                              method="POST"
+                              style="display: inline-block"
+                              onsubmit="return confirm('Êtes-vous sûr ?')"
+                        >
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+                            <button class="btn btn-danger"> Supprimer</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
             {% endfor %}
