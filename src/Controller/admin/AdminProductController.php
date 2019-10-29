@@ -57,8 +57,23 @@ class AdminProductController  extends  AbstractController {
     /**
      * @Route("/admin/product/create", name="admin.product.new")
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function new(Request $request){
         $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $this->em->persist($product);
+            $this->em->flush();
+            return $this->redirectToRoute('admin.product.index');
+        }
+
+        return $this->render('admin/product/create.html.twig', [
+            'product'=>$product,
+            'form'=>$form->createView()
+        ]);
+
     }
 }
