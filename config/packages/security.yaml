@@ -13,7 +13,7 @@ security:
             anonymous: true
 
             form_login:
-                check_path: true
+                check_path: login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

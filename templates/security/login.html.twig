@@ -2,11 +2,14 @@
 {% block tile 'Se connecter' %}
 
 {% block body %}
-{% if error %}
-    ERROR
-{% endif %}
+
 
     <div class="container mt-4">
+        {% if error %}
+            <div class="alert alert-danger">
+                👎 {{ error.message }}
+            </div>
+        {% endif %}
         <form action="{{ path('login') }}" method="post">
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>
