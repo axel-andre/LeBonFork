@@ -4,14 +4,24 @@ namespace App\Controller\admin;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminProductController  extends  AbstractController {
     private $repository;
-    public function __construct(ProductRepository $repository)
+    private $em;
+
+    /**
+     * AdminProductController constructor.
+     * @param ProductRepository $repository
+     * @param ObjectManager $em
+     */
+    public function __construct(ProductRepository $repository, ObjectManager $em)
     {
+        $this->em = $em;
         $this->repository = $repository;
     }
 
@@ -29,8 +39,15 @@ class AdminProductController  extends  AbstractController {
      * @param Product $product
      * @return Response
      */
-    public function edit(Product $product): Response{
+    public function edit(Product $product, Request $request): Response{
         $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $this->em->flush();
+            return $this->redirectToRoute('admin.product.index');
+        }
+
         return $this->render('admin/product/edit.html.twig', [
             'product'=>$product,
             'form'=>$form->createView()
