@@ -25,12 +25,29 @@ class ProductController extends AbstractController {
      * @return Response
      */
     public function index(ProductRepository $repository): Response{
-        $products = $repository->findAll();
+        $products = $repository->findAndSort('DESC');
         return $this->render('products/index.html.twig',[
             'current_menu'=> 'products',
+            'order'=>'DESC',
             'products' => $products
         ]);
     }
+
+    /**
+     * @Route("/products/sorted", name="products.sorted")
+     * @param ProductRepository $repository
+     * @return Response
+     */
+    public function sorted(ProductRepository $repository){
+        $products = $repository->findAndSort('ASC');
+        return $this->render('products/index.html.twig',[
+            'current_menu'=> 'products',
+            'order'=>'ASC',
+            'products' => $products
+        ]);
+    }
+
+
     public function create(){
         // New product creation
         $product = new Product();

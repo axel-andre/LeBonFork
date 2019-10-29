@@ -30,6 +30,13 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+    public function findAndSort($ordering){
+        return $this
+            ->createQueryBuilder('fs')
+            ->orderBy('fs.price', $ordering)
+            ->getQuery()->getResult();
+
+    }
 
     // /**
     //  * @return Product[] Returns an array of Product objects

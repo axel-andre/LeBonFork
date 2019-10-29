@@ -7,6 +7,11 @@
         <h1>Tous les biens</h1>
     </div>
     <div class="container">
+        {% if order == 'DESC' %}
+        <a href="{{ path("products.sorted") }}" class="btn btn-info">Croissant</a>
+        {% else %}
+        <a href="{{ path("products.index") }}" class="btn btn-info">Décroissant</a>
+        {% endif %}
         <div class="row">
 
         {% for product in products %}
