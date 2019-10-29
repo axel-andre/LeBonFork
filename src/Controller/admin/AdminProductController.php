@@ -76,4 +76,18 @@ class AdminProductController  extends  AbstractController {
         ]);
 
     }
+
+    /**
+     * @Route("/admin/product/{id}", name="admin.proudct.delete", methods="DELETE")
+     * @param Product $product
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Product $product, Request $request){
+        if($this->isCsrfTokenValid('delete'.$product->getId(),$request->get('token'))){
+            $this->em->remove($product);
+            $this->em->flush();
+        }
+        return $this->redirectToRoute('admin.product.index');
+    }
 }
